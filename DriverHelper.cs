@@ -8,6 +8,6 @@ namespace BuggyCars1
     public class DriverHelper
     {
         //public IWebDriver Driver { get; set; }
-        public  IWebDriver Driver { get; set; }
+        public IWebDriver Driver { get; set; }
     }
 }

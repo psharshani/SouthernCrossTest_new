@@ -14,23 +14,25 @@ namespace BuggyCars1.Steps
     public class RegistrationSteps
     {
         private DriverHelper _driverHelper;
-        //HomePage homePage;
+        //create PageObject for RegistrationPage
         RegistrationPage registrationPage;
-        // RegistrationPage registrationPage;
-        //RegistrationPage registrationPage = new RegistrationPage();
+        
 
         public RegistrationSteps(DriverHelper driverHelper)
         {
             _driverHelper = driverHelper;
-            //homePage = new HomePage(_driverHelper.Driver);
             registrationPage = new RegistrationPage(_driverHelper.Driver);
-            //RegistrationPage registrationPage = new RegistrationPage();
         }
 
         [Given(@"I navigate to BuggyCars website")]
         public void GivenINavigateToBuggyCarsWebsite()
         {
             //initialize chrome webDriver
+            //Driver = new ChromeDriver();
+            //Driver.Manage().Window.Maximize();
+            //DriverHelper.Driver = new ChromeDriver();
+            //DriverHelper.Driver.Manage().Window.Maximize();
+
             _driverHelper.Driver = new ChromeDriver();
             _driverHelper.Driver.Navigate().GoToUrl("https://buggy.justtestit.org");
             _driverHelper.Driver.Manage().Window.Maximize();
@@ -42,7 +44,7 @@ namespace BuggyCars1.Steps
             //registrationPage.ClickRegistrationLink();
             //Driver = new ChromeDriver();
             _driverHelper.Driver.Navigate().GoToUrl("https://buggy.justtestit.org/register");
-            
+          // Driver.Navigate().GoToUrl("https://buggy.justtestit.org/register");
         }
 
         [Given(@"I enter registration details")]
@@ -61,18 +63,25 @@ namespace BuggyCars1.Steps
             registrationPage.ClickRegisterBtn();
 
             _driverHelper.Driver.Quit();
+           // Driver.Quit();
         }
 
         [Then(@"I see the Success message")]
         public void ThenISeeTheSuccessMessage()
         {
-            //registrationPage.validateMessage();
+            registrationPage.validateSuccessMessage();
         }
 
-        [Then(@"I see the Unsuccess message")]
+        [Then(@"I see the Unuccess message")]
         public void ThenISeeTheUnsuccessMessage()
         {
-            
+            registrationPage.validateUnsuccessMessage();
+        }
+                           
+        [Then(@"I see the Password Donot Match Alert message")]
+        public void ThenISeeThePasswordDonotMatchAlertMessage()
+        {
+            registrationPage.alertPWDonotMatchMessage();
         }
 
     }

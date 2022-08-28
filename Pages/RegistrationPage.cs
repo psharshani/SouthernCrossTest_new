@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,29 +9,31 @@ namespace BuggyCars1.Pages
 {
     public class RegistrationPage
     {
-        private IWebDriver Driver;
+
         
+        private IWebDriver Driver;
+        //IWebDriver Driver;
+        //private DriverHelper _driverHelper;
+
         public RegistrationPage(IWebDriver driver)
         {
             Driver = driver;
         }
 
-        public RegistrationPage()
-        {
-        }
 
         //Initialize webElements
         // IWebElement lnkRegistration => Driver.FindElement(By.XPath("//a[@class='btn btn-success-outline' and text()='Register'] "));
-        IWebElement txtUserName => Driver.FindElement(By.XPath("//input[@id='username' and @name='username']"));
+        private IWebElement txtUserName => Driver.FindElement(By.XPath("//input[@id='username' and @name='username']"));
 
-        IWebElement txtFirstName => Driver.FindElement(By.XPath("//input[@id='firstName' and @name='firstName']"));
-        IWebElement txtLastName => Driver.FindElement(By.XPath("//input[@id='lastName' and @name='lastName']"));
-        IWebElement txtPassword => Driver.FindElement(By.XPath("//input[@id='password' and @name='password']"));
-        IWebElement txtConfirmPassword => Driver.FindElement(By.XPath("//input[@id='confirmPassword' and @name='confirmPassword']"));
-        IWebElement registerBtn => Driver.FindElement(By.XPath("//button[@type='submit' and text()='Register']"));
-        IWebElement successMsg => Driver.FindElement(By.XPath("//div[@class='result alert alert-success']"));
-
-
+        private IWebElement txtFirstName => Driver.FindElement(By.XPath("//input[@id='firstName' and @name='firstName']"));
+        private  IWebElement txtLastName => Driver.FindElement(By.XPath("//input[@id='lastName' and @name='lastName']"));
+        private IWebElement txtPassword => Driver.FindElement(By.XPath("//input[@id='password' and @name='password']"));
+        private IWebElement txtConfirmPassword => Driver.FindElement(By.XPath("//input[@id='confirmPassword' and @name='confirmPassword']"));
+        private IWebElement registerBtn => Driver.FindElement(By.XPath("//button[@type='submit' and text()='Register']"));
+        private IWebElement successMsg => Driver.FindElement(By.XPath("//div[@class='result alert alert-success']"));
+        private IWebElement unsuccessMsg => Driver.FindElement(By.XPath("//div[@class='result alert alert-danger']"));
+        private IWebElement pwDonotMatchMsg => Driver.FindElement(By.XPath("(//div[@class='alert alert-danger'])[6]"));
+        
         //public void ClickRegistrationLink()
         //{
         //    lnkRegistration.Click();
@@ -50,13 +53,19 @@ namespace BuggyCars1.Pages
             registerBtn.Click();
         }
         //string Message = successMsg();
-        public  void validateMessage(string Message)
+        public  void validateSuccessMessage()
         {
 
-           string verifyMessage = successMsg.Text;
+            Assert.AreEqual("Registration is successful", successMsg.Text);
         }
-
+        public void validateUnsuccessMessage()
+        {
+            Assert.AreEqual("UsernameExistsException: User already exists", unsuccessMsg.Text);
+        }
+        public void alertPWDonotMatchMessage()
+        {
+            Assert.AreEqual("Passwords do not match", pwDonotMatchMsg.Text);
+        }
     }
 
 }
-    

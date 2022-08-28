@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,12 +16,12 @@ namespace BuggyCars1.Pages
             Driver = driver;
         }
 
-        IWebElement txtLogin => Driver.FindElement(By.XPath("//input[@class='form-control form-control-sm input-sm ng-pristine ng-invalid ng-touched']"));
-        IWebElement txtPassword => Driver.FindElement(By.XPath("//input[@class='form-control form-control-sm ng-pristine ng-invalid ng-touched']"));
+        private IWebElement txtLogin => Driver.FindElement(By.XPath("//input[@class='form-control form-control-sm input-sm ng-pristine ng-invalid ng-touched']"));
+        private IWebElement txtPassword => Driver.FindElement(By.XPath("//input[@class='form-control form-control-sm ng-pristine ng-invalid ng-touched']"));
 
-        IWebElement loginBtn => Driver.FindElement(By.XPath("//button[@class='btn btn-success']"));
-        IWebElement logoutLink => Driver.FindElement(By.XPath("//a[@class='nav-link' and text()='Logout']"));
-    
+        private IWebElement loginBtn => Driver.FindElement(By.XPath("//button[@class='btn btn-success']"));
+        private IWebElement logoutLink => Driver.FindElement(By.XPath("//a[@class='nav-link' and text()='Logout']"));
+        private IWebElement logoutText => Driver.FindElement(By.XPath("(//a[@class='nav-link'])[2]"));
         public void EnterLoginData(string login,string password)
         {
             Thread.Sleep(1000);
@@ -31,5 +32,9 @@ namespace BuggyCars1.Pages
         public void ClickLogin() => loginBtn.Click();
 
         public void ClickLogout() => logoutLink.Click();
+        public void validateLoginSuccess()
+        {
+            Assert.AreEqual("Logout", logoutText.Text);
+        }
     }
 }

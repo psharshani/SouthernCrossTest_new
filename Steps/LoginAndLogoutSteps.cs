@@ -13,17 +13,21 @@ namespace BuggyCars1.Steps
     [Binding]
     public class LoginAndLogoutSteps
     {
-        //create object of class
-        private DriverHelper _driverHelper;
-        HomePage homePage;
-        //HomePage homePage = new HomePage();
-        public LoginAndLogoutSteps(DriverHelper driverHelper)
-        {
-            _driverHelper = driverHelper;
-            homePage = new HomePage(_driverHelper.Driver);
+        //create PageObject for HomePage
+        public HomePage homePage;
+        //WebDriver driver = new ChromeDriver();
 
-            //HomePage homePage = new HomePage();
-        }
+        //private DriverHelper _driverHelper;
+       
+        //HomePage homePage = new HomePage();
+        //public LoginAndLogoutSteps(DriverHelper driverHelper)
+        //{
+        //    //_driverHelper = driverHelper;
+        //    //homePage = new HomePage(_driverHelper.Driver);
+
+        //    //HomePage homePage = new HomePage();
+
+        //}
 
         [Given(@"enter username and password")]
         public void GivenEnterUsernameAndPassword(Table table)
@@ -36,13 +40,14 @@ namespace BuggyCars1.Steps
         [Given(@"I click login button")]
         public void GivenIClickLoginButton()
         {
-           
+            homePage.ClickLogin();
         }
 
-        [Then(@"I can see the Logout link on the page")]
-        public void ThenICanSeeTheLogoutLinkOnThePage()
+        [Then(@"I can see the Logout text on the page")]
+        public void ThenICanSeeTheLogoutTextOnThePage()
         {
-
+            homePage.validateLoginSuccess();
         }
+
     }
 }
